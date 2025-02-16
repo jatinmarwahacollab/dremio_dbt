@@ -11,7 +11,7 @@ renamed as (
     select
 
         ----------  ids
-        {{ dbt_utils.generate_surrogate_key(['id', 'sku']) }} as supply_uuid,
+        md5(cast(coalesce(cast(id as VARCHAR), '_dbt_utils_surrogate_key_null_') || '-' || coalesce(cast(sku as VARCHAR), '_dbt_utils_surrogate_key_null_') as VARCHAR)) as supply_uuid,
         id as supply_id,
         sku as product_id,
 
